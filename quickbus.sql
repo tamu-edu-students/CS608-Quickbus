@@ -24,6 +24,79 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_order`
+--
+
+CREATE TABLE `tbl_order` (
+  `id` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `routeId` int(11) NOT NULL,
+  `passenger` int(11) NOT NULL DEFAULT 1,
+  `complete` tinyint(1) NOT NULL DEFAULT 0,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tbl_order`
+--
+
+INSERT INTO `tbl_order` (`id`, `userId`, `routeId`, `passenger`, `complete`, `deleted`) VALUES
+(10, 4, 205, 3, 1, 1),
+(11, 4, 212, 1, 1, 0),
+(14, 4, 13, 1, 1, 1),
+(16, 4, 251, 2, 1, 1),
+(17, 4, 251, 2, 1, 1),
+(18, 4, 251, 1, 1, 1),
+(19, 4, 3, 2, 1, 1),
+(20, 4, 200, 3, 1, 0),
+(21, 4, 3, 2, 1, 1),
+(22, 4, 2, 3, 1, 1),
+(23, 4, 3, 2, 1, 0),
+(24, 4, 280, 1, 1, 1),
+(25, 4, 205, 3, 1, 1),
+(26, 4, 3, 2, 1, 0),
+(27, 24, 205, 3, 1, 0),
+(28, 205, 0, 1, 0, 0),
+(29, 205, 0, 1, 0, 0),
+(30, 205, 0, 1, 0, 0),
+(31, 24, 205, 1, 1, 0),
+(32, 205, 0, 1, 0, 0),
+(33, 205, 0, 1, 0, 0),
+(34, 205, 24, 1, 0, 0),
+(35, 205, 24, 1, 0, 0),
+(36, 212, 24, 1, 0, 0),
+(37, 200, 24, 1, 0, 0),
+(38, 200, 24, 1, 0, 0),
+(39, 200, 24, 1, 0, 0),
+(40, 24, 200, 1, 1, 0),
+(41, 24, 251, 1, 1, 0),
+(42, 24, 19, 1, 1, 0),
+(43, 24, 19, 1, 1, 1),
+(44, 24, 205, 6, 1, 1),
+(45, 24, 391, 3, 1, 0),
+(46, 30, 391, 1, 0, 1),
+(47, 30, 59, 1, 0, 1),
+(48, 30, 397, 1, 0, 1),
+(49, 30, 397, 1, 0, 1),
+(50, 30, 391, 1, 0, 1),
+(51, 30, 59, 1, 0, 1),
+(52, 30, 451, 1, 0, 1),
+(53, 30, 391, 5, 0, 0),
+(54, 24, 109, 2, 1, 1),
+(55, 24, 36, 2, 1, 0),
+(56, 36, 58, 1, 1, 0),
+(57, 36, 58, 3, 0, 1),
+(58, 36, 58, 2, 0, 0),
+(59, 36, 307, 2, 0, 0),
+(60, 37, 307, 1, 0, 0),
+(61, 37, 472, 1, 0, 0),
+(62, 38, 307, 2, 1, 0),
+(63, 38, 442, 1, 1, 1),
+(64, 4, 59, 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_route`
 --
 
@@ -555,9 +628,47 @@ INSERT INTO `tbl_route` (`id`, `start`, `dest`, `departTime`, `arriveTime`, `pri
 (512, 'Dallas', 'Plano', '2023-01-12 22:27:00', '2023-01-13 00:50:00', 10),
 (514, 'Houston', 'Dallas', '2022-11-07 14:52:00', '2022-11-08 14:52:00', 0);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_user`
+--
+
+CREATE TABLE `tbl_user` (
+  `userid` int(11) NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tbl_user`
+--
+
+INSERT INTO `tbl_user` (`userid`, `name`, `email`, `password`, `admin`) VALUES
+(1, '1', '1', '1', 0),
+(2, '13131', '13131', '111', 0),
+(4, '1', '1@1', '1', 0),
+(5, '123', '1@123', '11', 0),
+(7, 'asdf', '2@2', '123', 0),
+(9, 'ab', 'a@1', 'ok', 0),
+(10, '123', '1231@1', '14141', 0),
+(24, 'Jianchen Li', 'jxl180087@utdallas.edu', '123', 1),
+(30, '123', '1@2.com', '123', 0),
+(32, 'Jianchen Li', 'lijianchen09@gmail.com', '123', 0),
+(35, 'Jason Li', 'guest@utdallas.edu', '123', 0),
+(38, 'Jason Li', 'test@utdallas.edu', '123', 0);
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbl_order`
+--
+ALTER TABLE `tbl_order`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_route`
@@ -566,14 +677,33 @@ ALTER TABLE `tbl_route`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_user`
+--
+ALTER TABLE `tbl_user`
+  ADD PRIMARY KEY (`userid`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `tbl_order`
+--
+ALTER TABLE `tbl_order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `tbl_route`
 --
 ALTER TABLE `tbl_route`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=515;
+
+--
+-- AUTO_INCREMENT for table `tbl_user`
+--
+ALTER TABLE `tbl_user`
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
